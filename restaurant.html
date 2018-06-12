@@ -69,6 +69,7 @@
   <!-- End footer -->
 
   <!-- Beginning scripts -->
+  <script type="application/javascript" charset="utf-8" src="js/config.js"></script>
   <!-- Database helpers -->
   <script type="text/javascript" src="js/dbhelper.js"></script>
   <!-- Main javascript file -->
@@ -76,7 +77,10 @@
   <!-- Service Worker Register javascript file -->
   <script type="text/javascript" src="js/index.js"></script>
   <!-- Google Maps -->
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places&callback=initMap"></script>
+  <script>
+    var url = "https://maps.googleapis.com/maps/api/js?key="+config.YOUR_GOOGLE_MAPS_API_KEY+"&libraries=places&callback=initMap";
+    document.write("<script async defer src="+url+"><\/script>");
+  </script>
   <!-- End scripts -->
 
 </body>
