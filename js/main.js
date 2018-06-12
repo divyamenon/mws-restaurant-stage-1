@@ -138,28 +138,47 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
 createRestaurantHTML = (restaurant) => {
   const li = document.createElement('li');
 
+  const figure = document.createElement('figure');
   const image = document.createElement('img');
   image.className = 'restaurant-img';
-  image.src = DBHelper.imageUrlForRestaurant(restaurant);
-  li.append(image);
+
+  const image_url = DBHelper.imageUrlForRestaurant(restaurant);
+  const image_url_parts = image_url.split(".")
+  const image_url_1x = image_url_parts[0]+"-300_x1."+image_url_parts[1];
+  const image_url_2x = image_url_parts[0]+"-800_x2."+image_url_parts[1];
+  //console.log();
+  image.src = image_url_1x;
+  image.srcset = image_url_1x +" 1x ,"+ image_url_2x + " 2x";
+
+  image.alt = DBHelper.imageAltForRestaurant(restaurant);
+  figure.append(image);
+  li.append(figure);
+
+  const div = document.createElement('div');
+  div.className = 'restaurant-details';
 
   const name = document.createElement('h1');
   name.innerHTML = restaurant.name;
-  li.append(name);
+  div.append(name);
 
   const neighborhood = document.createElement('p');
   neighborhood.innerHTML = restaurant.neighborhood;
-  li.append(neighborhood);
+  div.append(neighborhood);
 
   const address = document.createElement('p');
   address.innerHTML = restaurant.address;
-  li.append(address);
+  div.append(address);
 
-  const more = document.createElement('a');
+  // <button type="button" onclick="alert('Hello world!')">Click Me!</button>
+  const more = document.createElement('button');
   more.innerHTML = 'View Details';
-  more.href = DBHelper.urlForRestaurant(restaurant);
-  li.append(more)
+  more.onclick = function(){
+    window.open(DBHelper.urlForRestaurant(restaurant));
+  }
+  div.append(more);
 
+  li.append(div);
+  
   return li
 }
 
